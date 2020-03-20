@@ -3,8 +3,12 @@ import attrs
 
 class Product:
     nombre = attrs.ib()
-    path_files = attrs.ib()
+    _path_files = attrs.ib(init=False)
 
-    def compress_product(self):
+    def _compress_product(self):
         pass
+
+    def get_image_product(self, name):
+        pass
+
 
