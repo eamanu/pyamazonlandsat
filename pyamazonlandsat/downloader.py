@@ -1,17 +1,21 @@
-import attrs
+import attr
 import re
+import os
+import requests
 
 from bs4 import BeautifulSoup
 from urllib import request
 from tempfile import mkdtemp
 
+
+@attr.s
 class Downloader:
-    link = attrs.ib()
-    _html = attrs.ib(init=False, default='')
-    _soup = attrs.ib(init=False, default=None)
-    _links_tiff = attrs.ib(init=False, default=list())
-    _links_mtl_ang_files = attrs.ib(init=False, default=list())
-    _tmp_folder = attrs.ib(init=False default=mkdtemp())
+    link = attr.ib()
+    _html = attr.ib(init=False, default='')
+    _soup = attr.ib(init=False, default=None)
+    _links_tiff = attr.ib(init=False, default=list())
+    _links_mtl_ang_files = attr.ib(init=False, default=list())
+    _tmp_folder = attr.ib(init=False, default=mkdtemp())
 
     def __read_key_value(self, pattern):
         for link in self._soup.find_all('a'):
@@ -24,10 +28,10 @@ class Downloader:
         self._soup = BeautifulSoup(self._html, 'html.parser')
 
     def get_download_links_tiff(self):
-        self._links_tiff.append(self.__read_key_value('.*.TIF'))
+        self._links_tiff = list(self.__read_key_value('.*.TIF$'))
 
     def get_mtl_ang_files(self):
-        self._links_mtl_ang_files.append(self.__read_key_value('.*.txt'))
+        self._links_mtl_ang_files = list(self.__read_key_value('.*.txt$'))
 
     def _prepare_for_download(self):
         self.read_link()
@@ -40,13 +44,11 @@ class Downloader:
             f.write(content)
 
     def _download_file(self, name):
-        file_content = requests.get('%s/%s' % (self.link, name),
-                                    allow_redirect=True)
-        self._save_file_on_tmp_folder(name, file_content)
+        file_content = requests.get('%s/%s' % (self.link, name))
+        self._save_file_on_tmp_folder(name, file_content.content)
 
     def download_images(self):
         self._prepare_for_download()
-
         for tiff in self._links_tiff:
             self._download_file(tiff)
         for txt in self._links_mtl_ang_files:

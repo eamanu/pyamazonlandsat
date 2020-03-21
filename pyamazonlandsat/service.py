@@ -1,8 +1,14 @@
-import attrs
+import attr
+
+from pyamazonlandsat.product import Product
 
 
-@attrs.s
+@attr.s
 class Service:
-    sat = attrs.ib(default='L8')
-    collection = attrs.ib(default='c1')
-    link = attrs.ib(default='https://landsat-pds.s3.amazonaws.com/')
+    name = attr.ib()
+    output_path = attr.ib()
+
+    def get_product(self):
+        product = Product(self.name, self.output_path)
+        product.get_image_product()
+
