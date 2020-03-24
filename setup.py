@@ -31,7 +31,6 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "Development Status :: 4 - Beta",
-        "Operating System :: Linux",
         "Environment :: Console",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: MIT License",
