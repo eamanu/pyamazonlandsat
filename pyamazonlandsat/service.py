@@ -1,6 +1,8 @@
 import attr
 
 from pyamazonlandsat.product import Product
+from urllib.error import HTTPError
+
 
 
 @attr.s
@@ -24,6 +26,9 @@ class Service:
         This method get  download the product with name `name`
         and save on `output_path`
         """
-        product = Product(self.name, self.output_path)
-        product.get_image_product()
+        try:
+            product = Product(self.name, self.output_path)
+            product.get_image_product()
+        except HTTPError:
+            print('The product %s does not exist on S3 repository' % self.name)
 

@@ -10,6 +10,11 @@ version = {}
 with open('pyamazonlandsat/version.py') as fp:
     exec(fp.read(), version)
 
+
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                       'README.md')) as f:
+    long_description = f.read()
+
 setup(
     name=NAME,
     version=version['__version__'],
@@ -19,6 +24,8 @@ setup(
     author='Emmanuel Arias',
     author_email='eamanu@yaerobi.com',
     description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     scripts=[SCRIPT],
     install_requires=["requests",
                       "attrs",
