@@ -22,16 +22,19 @@ setup(
     scripts=[SCRIPT],
     install_requires=["requests",
                       "attrs",
-                      "bs4"],
+                      "bs4",
+                      "sphinx"],
     tests_require=[
         "pytest==3.0.7",
     ],
+    keywords = ['Landsat', 'Amazon', 'S3'],
     classifiers=[
-        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
         "Development Status :: 4 - Beta",
         "Operating System :: Linux",
         "Environment :: Console",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: MIT License",
     ],
 
 )
