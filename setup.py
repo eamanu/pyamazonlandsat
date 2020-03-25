@@ -25,6 +25,7 @@ setup(
     author_email='eamanu@yaerobi.com',
     description=DESCRIPTION,
     long_description=long_description,
+    long_description_content_type="text/markdown",
     scripts=[SCRIPT],
     install_requires=["requests",
                       "attrs",
