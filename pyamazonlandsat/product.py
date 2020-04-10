@@ -31,7 +31,7 @@ class Product:
         """Method to compress product into a tar file.
         """
         with tarfile.open('%s.tar.gz' %
-            os.path.join(self.output_path, self.name), 'w') as tar:
+                          os.path.join(self.output_path, self.name), 'w:gz') as tar:
             for ff in os.listdir(self._path_files):
                 tar.add(
                     os.path.join(
