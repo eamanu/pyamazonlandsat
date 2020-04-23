@@ -2,6 +2,8 @@ import attr
 import re
 import os
 import requests
+import shutil
+import glob
 
 from bs4 import BeautifulSoup
 from urllib import request
@@ -109,3 +111,11 @@ class Downloader:
             self._download_file(txt)
 
         return self._tmp_folder
+
+    def remove_tmp_files(self):
+        files = glob.glob('%s/*' % self._tmp_folder)
+        for f in files:
+            os.remove(f)
+
+    def __del__(self):
+        shutil.rmtree(self._tmp_folder)

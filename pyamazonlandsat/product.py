@@ -52,3 +52,4 @@ class Product:
         downloader = Downloader(self._link)
         self._path_files = downloader.download_images()
         self._compress_product()
+        downloader.remove_tmp_files()
