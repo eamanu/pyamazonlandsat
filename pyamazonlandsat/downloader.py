@@ -116,6 +116,3 @@ class Downloader:
         files = glob.glob('%s/*' % self._tmp_folder)
         for f in files:
             os.remove(f)
-
-    def __del__(self):
-        shutil.rmtree(self._tmp_folder)
